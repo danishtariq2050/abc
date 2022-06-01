@@ -1,7 +1,9 @@
+import Nav from "./navigation/Nav";
+
 function App() {
   return (
     <div>
-      <h1>How are you?</h1>
+      <Nav />
     </div>
   )
 }
