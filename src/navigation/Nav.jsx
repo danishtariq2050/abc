@@ -16,29 +16,29 @@ function Nav() {
     return (
         // fixed-top
         <Router>
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-                <Link class="navbar-brand" to={"/"}>Shopping Mart</Link>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/"}>Home</Link>
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark ">
+                <Link className="navbar-brand" to={"/"}>Shopping Mart</Link>
+                <ul className="navbar-nav">
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/"}>Home</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/shop"}>Shop</Link>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/shop"}>Shop</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/about"}>About Us</Link>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/about"}>About Us</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/contact"}>Contact Us</Link>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/contact"}>Contact Us</Link>
                     </li>
                 </ul >
 
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/login"}>Login</Link>
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/login"}>Login</Link>
                     </li>
-                    <li class="nav-item">
-                        <Link class="nav-link" to={"/register"}>Register</Link>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/register"}>Register</Link>
                     </li >
                 </ul >
             </nav >
