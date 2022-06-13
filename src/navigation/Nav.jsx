@@ -11,6 +11,7 @@ import Contact from '../components/Contact/Contact';
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Shop from '../components/Shop/Shop';
+import Blog from '../components/Blog/Blog';
 
 function Nav() {
     return (
@@ -24,6 +25,9 @@ function Nav() {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/shop"}>Shop</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={"/blogs"}>Blogs</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to={"/about"}>About Us</Link>
@@ -50,6 +54,7 @@ function Nav() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/shop" element={<Shop />} />
+                <Route path="/blogs" element={<Blog />} />
             </Routes>
         </Router >
     )
