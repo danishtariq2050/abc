@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
     const [noOfRecord, setNoOfRecord] = useState(0);
@@ -51,6 +52,9 @@ const Blog = () => {
                                             <h4>{d.API} &mdash; {d.Category}</h4>
                                             <p>{d.Description}</p>
                                             <a href={d.Link} target="_blank" className="text-light font-weight-bold">Visit</a>
+                                            <div>
+                                                <Link to={"/blogs/" + d.Description}>More Details</Link>
+                                            </div>
                                         </div>
                                     ))
                                 }

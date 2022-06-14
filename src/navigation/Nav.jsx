@@ -12,6 +12,7 @@ import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Shop from '../components/Shop/Shop';
 import Blog from '../components/Blog/Blog';
+import BlogDetails from "../components/Blog/BlogDetails";
 import NotFound from "../components/NotFound/NotFound";
 
 function Nav() {
@@ -56,6 +57,7 @@ function Nav() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/blogs" element={<Blog />} />
+                <Route path="/blogs/:desc" element={<BlogDetails />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Router >
