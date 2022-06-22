@@ -3,17 +3,22 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-    const [user, setUser] = useState({
+    const initialValues = {
         name: '',
         email: '',
         pass: '',
         conpass: '',
         country: ''
-    });
+    };
+    const [user, setUser] = useState(initialValues);
 
     const [countries, setCountries] = useState([]);
     const [error, setError] = useState(false);
     const [errorClass, setErrorClass] = useState('');
+
+    const [msg, setMsg] = useState('');
+
+
 
     const navigate = useNavigate();
 
@@ -25,12 +30,37 @@ function Register() {
             });
     }, []);
 
-    const registerUser = (e) => {
+    const registerUser = async (e) => {
         e.preventDefault();
         setError(user.pass !== user.conpass);
         setErrorClass(user.pass !== user.conpass ? "is-invalid" : "is-valid");
 
-        navigate('/about');
+        let userValue = { ...user };
+        delete userValue['conpass'];
+
+        const res = await fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userValue)
+        });
+
+        const data = await res.json();
+        setMsg(data.msg);
+        console.log(data);
+
+        // const userValue = {
+        //     name: user.name,
+        //     email: user.email,
+        //     pass: user.pass,
+        //     country: user.country
+        // };
+
+        // console.log(user);
+        // console.log(userValue);
+
+        // navigate('/about');
 
 
         // user.pass !== user.conpass ? setError(true) : setError(false);
@@ -110,16 +140,14 @@ function Register() {
                 <button className="btn btn-primary btn-block mt-4">Sign Up</button>
             </form>
 
-            <div>
-                <hr />
-                <h2>Output</h2>
-                <hr />
-                <p>{user.name}</p>
-                <p>{user.email}</p>
-                <p>{user.pass}</p>
-                <p>{user.conpass}</p>
-                <p>{user.country}</p>
-            </div>
+            {
+                msg && (
+                    <div className="alert alert-success alert-dismissible m-5">
+                        <a href="#" className="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success!</strong> {msg}.
+                    </div>
+                )
+            }
         </>
 
     );
