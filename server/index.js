@@ -9,4 +9,8 @@ app.get('/xyz', (req, res) => {
     res.send('Lets Go')
 })
 
-app.listen(5000)
+app.listen(5000, () => {
+    console.log('Server is Running')
+}).on('error', (err) => {
+    console.log('Error is: ' + err)
+});
