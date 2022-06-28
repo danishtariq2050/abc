@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [user, setUser] = useState({
         email: '',
         password: ''
     });
+
+    const navigateTo = useNavigate();
 
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -20,8 +23,9 @@ function Login() {
         const data = await res.json();
 
         if (data.userFound) {
-            alert('User is Authorized');
             console.log(data);
+            localStorage.setItem('token', data.user);
+            navigateTo('/dashboard');
         }
 
         else {
