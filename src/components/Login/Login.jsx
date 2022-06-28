@@ -1,99 +1,46 @@
 import { useState, useEffect } from 'react';
-// import React from 'react';
 
 function Login() {
-    const [name, setName] = useState(null);
-    const [age, setAge] = useState(null);
-
-    const [person, setPerson] = useState({
-        name: 'Awais',
-        age: 20,
-        country: 'England',
-        city: 'London',
-        day: 'Thursday'
+    const [user, setUser] = useState({
+        email: '',
+        password: ''
     });
 
-    const [student, setStudent] = useState([
-        'Ali', 'Awais', 'Muaz', 'Bilal', 'John'
-    ]);
+    const handleSignIn = async (e) => {
+        e.preventDefault();
 
-    const [employee, setEmployee] = useState([
-        { name: 'Ali', city: 'Lahore' },
-        { name: 'Awais', city: 'Islamabad' },
-        { name: 'Muaz', city: 'Lahore' },
-        { name: 'Bilal', city: 'Karachi' },
-        { name: 'John', city: 'Multan' },
-    ]);
+        const res = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
 
+        const data = await res.json();
 
-    const handleSignIn = () => {
-        setName('Usman');
-        setAge(21);
+        if (data.userFound) {
+            alert('User is Authorized');
+        }
 
-        setPerson({
-            ...person,
-            name: 'Ali',
-            country: 'USA',
-            time: 'night'
-        })
+        else {
+            alert('Wrong Email / Password');
+        }
     };
 
-    const removeEmployee = (city) => {
-        // const data = employee.filter(e => e.city !== 'Lahore');
-        const data = employee.filter(e => e.city !== city);
-        setEmployee(data);
-    }
-
-    useEffect(() => {
-        console.log('I am Running');
-        // }, []);
-        // }, [name, age]);
-    });
-
     return (
-        <form className="container mt-5">
-            <p>{student.join(', ')}</p>
-
-            <ol>
-                {
-                    student.map((ab, i) => (
-                        <li key={i}>{ab} - {i}</li>
-                    ))
-                }
-            </ol>
-            <h1></h1>
-            <ul>
-                {
-                    employee.map((x, i) => (
-                        <li key={i}>{x.name} is {i} in {x.city}</li>
-                    ))
-                }
-            </ul>
-
-            {
-                name && (
-                    <h3>{name} is {age} years old.</h3>
-                )
-            }
-
-            <p>{person.name}</p>
-            <p>{person.country}</p>
-            <p>{person.age}</p>
-            <p>{person.city}</p>
-            <p>{person.day}</p>
-            <p>{person.time}</p>
+        <form className="container mt-5" onSubmit={handleSignIn}>
             <h1 className="text-center">Login</h1>
             <hr width="50" color="red" />
             <div className="form-group mt-5">
-                <input type="email" className="form-control" placeholder="Email Address" />
+                <input type="email" className="form-control" placeholder="Email Address" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
             </div>
 
             <div className="form-group">
-                <input type="password" className="form-control" placeholder="Password" />
+                <input type="password" className="form-control" placeholder="Password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
             </div>
 
-            <button className="btn btn-primary btn-block mt-4" type="button" onClick={handleSignIn}>Sign In</button>
-            <button className="btn btn-danger btn-block" type="button" onClick={() => removeEmployee('Islamabad')}>Remove</button>
+            <button className="btn btn-primary btn-block mt-4">Sign In</button>
         </form>
     );
 }

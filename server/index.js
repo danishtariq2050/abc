@@ -43,6 +43,29 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+app.post('/api/login', async (req, res) => {
+
+    const user = await User.findOne({
+        email: req.body.email,
+        password: req.body.password
+    });
+
+    if (user) {
+        return res.json({
+            status: 'ok',
+            userFound: true,
+            user: user
+        });
+    }
+
+    else {
+        return res.json({
+            status: 'notok',
+            userFound: false
+        });
+    }
+});
+
 app.listen(5000, () => {
     console.log('Server is Running')
 }).on('error', (err) => {
