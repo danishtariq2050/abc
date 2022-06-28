@@ -21,6 +21,7 @@ function Login() {
 
         if (data.userFound) {
             alert('User is Authorized');
+            console.log(data);
         }
 
         else {
