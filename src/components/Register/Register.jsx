@@ -50,6 +50,10 @@ function Register() {
         setMsg(data.msg);
         console.log(data);
 
+        if (data.status === 'ok') {
+            navigate('/login');
+        }
+
         // const userValue = {
         //     name: user.name,
         //     email: user.email,
