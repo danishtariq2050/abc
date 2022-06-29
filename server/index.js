@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user.model')
+const Product = require('./models/product.model')
 const jwt = require('jsonwebtoken')
 
 app.use(cors())
@@ -70,6 +71,48 @@ app.post('/api/login', async (req, res) => {
         return res.json({
             status: 'notok',
             userFound: false
+        });
+    }
+});
+
+app.get('/api/getProducts', async (req, res) => {
+    const products = await Product.find();
+
+    if (products) {
+        return res.json({
+            status: 'ok',
+            product: products
+        })
+    }
+
+    else {
+        return res.json({
+            status: 'notok'
+        })
+    }
+});
+
+app.post('/api/saveProducts', async (req, res) => {
+    try {
+        await Product.create({
+            name: req.body.name,
+            model: req.body.model,
+            description: req.body.description,
+            price: req.body.price,
+            image: req.body.image,
+            category: req.body.category,
+        })
+
+        res.json({
+            status: 'ok',
+            msg: 'Product has been Saved'
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.json({
+            status: 'notok',
+            msg: 'Product has not been Saved'
         });
     }
 });
