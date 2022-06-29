@@ -15,6 +15,7 @@ import Blog from '../components/Blog/Blog';
 import BlogDetails from "../components/Blog/BlogDetails";
 import NotFound from "../components/NotFound/NotFound";
 import Dashboard from "../components/Dashboard/Dashboard";
+import AddProduct from "../components/Product/Product";
 
 function Nav() {
     return (
@@ -60,6 +61,7 @@ function Nav() {
                 <Route path="/blogs" element={<Blog />} />
                 <Route path="/blogs/:desc" element={<BlogDetails />} />
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/addProduct" element={<AddProduct />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Router >
