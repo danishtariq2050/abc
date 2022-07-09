@@ -37,6 +37,17 @@ const AddProduct = () => {
         }
     }
 
+    const convertImage = (e) => {
+        const file = e.target.files[0];
+        const convertFile = new FileReader();
+
+        convertFile.onloadend = () => {
+            setProduct({ ...product, image: convertFile.result })
+        }
+
+        convertFile.readAsDataURL(file);
+    }
+
     return (
         <div>
             <h3 className="my-3 text-center">Create New Product</h3>
@@ -70,12 +81,12 @@ const AddProduct = () => {
 
                 <div className="form-group">
                     <label>Image:</label>
-                    <input type="file" className="form-control-file" />
+                    <input type="file" className="form-control-file" accept="image/*" onChange={(e) => convertImage(e)} />
                 </div>
 
                 <button className="btn btn-success btn-block mt-5">Save Product</button>
-            </form >
-        </div >
+            </form>
+        </div>
     )
 }
 
