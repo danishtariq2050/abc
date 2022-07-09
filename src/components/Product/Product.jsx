@@ -71,7 +71,7 @@ const AddProduct = () => {
 
                 <div className="form-group">
                     <label>Price:</label>
-                    <input type="number" placeholder="Price" className="form-control" value={product.price} onChange={(e) => setProduct({ ...product, price: e.target.value })} />
+                    <input type="number" min="0" placeholder="Price" className="form-control" value={product.price} onChange={(e) => setProduct({ ...product, price: e.target.value })} />
                 </div>
 
                 <div className="form-group">
