@@ -94,27 +94,37 @@ app.get('/api/getProducts', async (req, res) => {
 });
 
 app.post('/api/saveProducts', async (req, res) => {
-    try {
-        await Product.create({
-            name: req.body.name,
-            model: req.body.model,
-            description: req.body.description,
-            price: req.body.price,
-            image: req.body.image,
-            category: req.body.category,
-        })
 
-        res.json({
-            status: 'ok',
-            msg: 'Product has been Saved'
-        });
-
-    } catch (error) {
-        console.log(error)
+    if (req.body.price < 0) {
         res.json({
             status: 'notok',
-            msg: 'Product has not been Saved'
+            msg: 'Price must be greater then 0'
         });
+    }
+
+    else {
+        try {
+            await Product.create({
+                name: req.body.name,
+                model: req.body.model,
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image,
+                category: req.body.category,
+            })
+
+            res.json({
+                status: 'ok',
+                msg: 'Product has been Saved'
+            });
+
+        } catch (error) {
+            console.log(error)
+            res.json({
+                status: 'notok',
+                msg: 'Product has not been Saved'
+            });
+        }
     }
 });
 
