@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const User = require('./models/user.model')
 const Product = require('./models/product.model')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 app.use(cors())
 app.use(express.json({ limit: '50mb' }));
@@ -24,10 +25,12 @@ app.post('/api/register', async (req, res) => {
     console.log(req.body);
 
     try {
+        const encryptPassword = await bcrypt.hash(req.body.pass, 10);
+
         await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.pass,
+            password: encryptPassword,
             country: req.body.country
         })
 
@@ -50,10 +53,18 @@ app.post('/api/login', async (req, res) => {
 
     const user = await User.findOne({
         email: req.body.email,
-        password: req.body.password
     });
 
-    if (user) {
+    if (!user) {
+        return res.json({
+            status: 'notok',
+            userFound: false
+        });
+    }
+
+    const comparePassword = await bcrypt.compare(req.body.password, user.password);
+
+    if (comparePassword) {
 
         const token = jwt.sign({
             name: user.name,
