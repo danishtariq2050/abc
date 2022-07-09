@@ -7,7 +7,8 @@ const Product = require('./models/product.model')
 const jwt = require('jsonwebtoken')
 
 app.use(cors())
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 
 mongoose.connect('mongodb+srv://danishtest:nShJPXTlAoRmdZoz@cluster0.dxauk.mongodb.net/?retryWrites=true&w=majority')
 
