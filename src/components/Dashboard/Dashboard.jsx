@@ -94,9 +94,15 @@ const Dashboard = () => {
                                                 className="img-fluid h-50 image" />
                                             <div class="overlay">
                                                 <div class="icons">
-                                                    <i className="fas fa-eye text-primary"></i>
-                                                    <i className="fas fa-edit mx-4 text-warning"></i>
-                                                    <i className="fas fa-trash text-dark"></i>
+                                                    <Link to={"/products/" + v._id}>
+                                                        <i className="fas fa-eye text-primary"></i>
+                                                    </Link>
+                                                    <Link to={"/products/" + v._id + "/edit"}>
+                                                        <i className="fas fa-edit mx-4 text-warning"></i>
+                                                    </Link>
+                                                    <Link to={"/products/" + v._id + "/delete"}>
+                                                        <i className="fas fa-trash text-dark"></i>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
