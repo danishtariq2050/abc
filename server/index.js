@@ -11,7 +11,8 @@ app.use(cors())
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
-mongoose.connect('mongodb+srv://danishtest:nShJPXTlAoRmdZoz@cluster0.dxauk.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://danishtest:nShJPXTlAoRmdZoz@cluster0.dxauk.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
+    .catch(error => console.error(error));
 
 app.get('/abc', (req, res) => {
     res.send('yeah it is working fine')
