@@ -12,6 +12,7 @@
     "react-number-format": "^4.9.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.3",
     "react-tooltip": "^4.2.21",
     "web-vitals": "^2.1.4"
   },
