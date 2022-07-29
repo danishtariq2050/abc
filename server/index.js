@@ -159,6 +159,26 @@ app.post('/api/saveProducts', async (req, res) => {
     }
 });
 
+app.delete('/api/deleteProduct', async (req, res) => {
+
+    const productId = req.body.id;
+
+    const product = await Product.findByIdAndRemove(productId);
+
+    if (product) {
+        product.remove();
+        return res.json({
+            status: 'Product has been Removed!!!'
+        })
+    }
+
+    else {
+        return res.json({
+            status: 'Product is not Found!!!'
+        })
+    }
+});
+
 app.listen(5000, () => {
     console.log('Server is Running')
 }).on('error', (err) => {
