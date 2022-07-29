@@ -67,7 +67,6 @@ function Nav() {
 
                 <Route path="/products/:id" element={<ProductView />} />
                 <Route path="/products/:id/edit" element={<AddProduct />} />
-                <Route path="/products/:id/delete" element={<ProductView />} />
             </Routes>
         </Router >
     )
