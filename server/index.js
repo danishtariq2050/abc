@@ -104,6 +104,26 @@ app.get('/api/getProducts', async (req, res) => {
     }
 });
 
+app.post('/api/getProduct', async (req, res) => {
+
+    const productId = req.body.id;
+
+    const product = await Product.findById(productId);
+
+    if (product) {
+        return res.json({
+            status: 'ok',
+            product: product
+        })
+    }
+
+    else {
+        return res.json({
+            status: 'Product is not Available!!!'
+        })
+    }
+});
+
 app.post('/api/saveProducts', async (req, res) => {
 
     if (req.body.price < 0) {
