@@ -53,6 +53,20 @@ const Dashboard = () => {
         setProductView(view);
     }
 
+    const deleteProduct = async (id) => {
+        const res = await fetch('http://localhost:5000/api/deleteProduct', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        });
+
+        const data = await res.json();
+        alert(data.status);
+        getProducts();
+    }
+
     return (
         <div className="my-3 container-fluid">
             <h3 className="text-center">Welcome to Dashboard</h3>
@@ -100,9 +114,9 @@ const Dashboard = () => {
                                                     <Link to={"/products/" + v._id + "/edit"}>
                                                         <i className="fas fa-edit mx-4 text-warning"></i>
                                                     </Link>
-                                                    <Link to={"/products/" + v._id + "/delete"}>
+                                                    <button className="btn btn-link" onClick={() => deleteProduct(v._id)}>
                                                         <i className="fas fa-trash text-dark"></i>
-                                                    </Link>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
