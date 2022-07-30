@@ -180,6 +180,33 @@ app.delete('/api/deleteProduct', async (req, res) => {
     }
 });
 
+app.put('/api/updateProduct', async (req, res) => {
+
+    const productId = req.body._id;
+
+    const product = await Product.findByIdAndUpdate(productId, {
+        name: req.body.name,
+        model: req.body.model,
+        description: req.body.description,
+        price: req.body.price,
+        image: req.body.image,
+        category: req.body.category,
+    });
+
+    if (product) {
+        return res.json({
+            status: 'Product has been Updated!!!',
+            msg: 'ok',
+        })
+    }
+
+    else {
+        return res.json({
+            status: 'Product is not Found!!!'
+        })
+    }
+});
+
 app.listen(5000, () => {
     console.log('Server is Running')
 }).on('error', (err) => {
