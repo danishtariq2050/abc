@@ -17,6 +17,8 @@ import NotFound from "../components/NotFound/NotFound";
 import Dashboard from "../components/Dashboard/Dashboard";
 import AddProduct from "../components/Product/Product";
 import ProductView from "../components/Product/ProductView";
+import AdminLogin from "../components/Admin/Login/Login";
+import AdminRegister from "../components/Admin/Register/Register";
 
 function Nav() {
     return (
@@ -67,6 +69,9 @@ function Nav() {
 
                 <Route path="/products/:id" element={<ProductView />} />
                 <Route path="/products/:id/edit" element={<AddProduct />} />
+
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/register" element={<AdminRegister />} />
             </Routes>
         </Router >
     )
