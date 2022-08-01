@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const User = require('./models/user.model')
 const Product = require('./models/product.model')
+const Admin = require('./models/admin.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
@@ -21,6 +22,79 @@ app.get('/abc', (req, res) => {
 app.get('/xyz', (req, res) => {
     res.send('Lets Go')
 })
+
+app.post('/api/admin/register', async (req, res) => {
+    try {
+        const isAdmin = await Admin.findOne({
+            isActive: true,
+        });
+
+        if (!isAdmin) {
+            const encryptPassword = await bcrypt.hash(req.body.password, 10);
+
+            await Admin.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: encryptPassword,
+                isActive: true
+            })
+
+            res.json({
+                status: 'ok',
+                msg: 'Admin Account Created!!!'
+            });
+        }
+        else {
+            res.json({
+                status: 'notok',
+                msg: 'Admin Account Already Created by other Email!!!'
+            });
+        }
+
+    } catch (error) {
+        res.json({
+            status: 'notok',
+            msg: 'Admin Account not created!!!'
+        });
+    }
+});
+
+app.post('/api/admin/login', async (req, res) => {
+
+    const isAdmin = await Admin.findOne({
+        email: req.body.email,
+        isActive: true,
+    });
+
+    if (!isAdmin) {
+        return res.json({
+            status: 'notok',
+            adminFound: false
+        });
+    }
+
+    const comparePassword = await bcrypt.compare(req.body.password, isAdmin.password);
+
+    if (comparePassword) {
+        const token = jwt.sign({
+            name: isAdmin.name,
+            email: isAdmin.email,
+        }, 'secrettopadmin');
+
+        return res.json({
+            status: 'ok',
+            adminFound: true,
+            admin: token
+        });
+    }
+
+    else {
+        return res.json({
+            status: 'notok',
+            adminFound: false
+        });
+    }
+});
 
 app.post('/api/register', async (req, res) => {
     console.log(req.body);
