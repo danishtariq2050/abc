@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { user_details } from '../../store/action';
 
 function Login() {
     const [user, setUser] = useState({
@@ -8,6 +10,7 @@ function Login() {
     });
 
     const navigateTo = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSignIn = async (e) => {
         e.preventDefault();
@@ -23,8 +26,8 @@ function Login() {
         const data = await res.json();
 
         if (data.userFound) {
-            console.log(data);
             localStorage.setItem('token', data.user);
+            dispatch(user_details(data.userData));
             navigateTo('/dashboard');
         }
 
