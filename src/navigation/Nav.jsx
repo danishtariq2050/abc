@@ -19,8 +19,21 @@ import AddProduct from "../components/Product/Product";
 import ProductView from "../components/Product/ProductView";
 import AdminLogin from "../components/Admin/Login/Login";
 import AdminRegister from "../components/Admin/Register/Register";
+import { useDispatch, useSelector } from "react-redux";
+import { user_details } from "../store/action";
 
 function Nav() {
+    const userSelector = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const backToLogin = () => {
+        const data = {
+            name: "",
+            email: "",
+        }
+        dispatch(user_details(data));
+    }
+
     return (
         // fixed-top
         <Router>
@@ -45,14 +58,33 @@ function Nav() {
                 </ul >
 
                 <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/login"}>Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/register"}>Register</Link>
-                    </li >
-                </ul >
-            </nav >
+                    {
+                        userSelector.email === "" && (
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={"/login"}>Login</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to={"/register"}>Register</Link>
+                                </li>
+                            </>
+                        )
+                    }
+
+                    {
+                        userSelector.email !== "" && (
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                    Welcome, <span className="font-weight-bold">{userSelector.name}</span>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <Link class="dropdown-item" to="/login" onClick={() => backToLogin()}>Logout</Link>
+                                </div>
+                            </li>
+                        )
+                    }
+                </ul>
+            </nav>
 
             <Routes>
                 <Route path="/" element={<Home />} />
