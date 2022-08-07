@@ -150,7 +150,8 @@ app.post('/api/login', async (req, res) => {
         return res.json({
             status: 'ok',
             userFound: true,
-            user: token
+            user: token,
+            userData: { name: user.name, email: user.email }
         });
     }
 
