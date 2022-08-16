@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const User = require('./models/user.model')
 const Product = require('./models/product.model')
 const Admin = require('./models/admin.model')
+const Order = require('./models/order.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
@@ -279,6 +280,33 @@ app.put('/api/updateProduct', async (req, res) => {
         return res.json({
             status: 'Product is not Found!!!'
         })
+    }
+});
+
+app.post('/api/saveOrder', async (req, res) => {
+    try {
+        await Order.create({
+            name: req.body.name,
+            email: req.body.email,
+            mobileNo: req.body.mobileNo,
+            address: req.body.address,
+            deliveryDate: req.body.deliveryDate,
+            products: req.body.products,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        })
+
+        res.json({
+            status: 'ok',
+            msg: 'Order has been Saved'
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.json({
+            status: 'notok',
+            msg: 'Order has not been Saved'
+        });
     }
 });
 
