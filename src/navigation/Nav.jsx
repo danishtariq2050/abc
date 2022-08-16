@@ -21,9 +21,13 @@ import AdminLogin from "../components/Admin/Login/Login";
 import AdminRegister from "../components/Admin/Register/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { user_details } from "../store/action";
+import Cart from "../components/Cart/Cart";
+import NumberFormat from "react-number-format";
+import PlaceOrder from "../components/PlaceOrder/PlaceOrder";
 
 function Nav() {
     const userSelector = useSelector((state) => state.user);
+    const cartSelector = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
     const backToLogin = () => {
@@ -58,6 +62,20 @@ function Nav() {
                 </ul >
 
                 <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Link className="btn btn-link text-decoration-none" to={"/cart"}>
+                            <i className="fa fa-shopping-cart mr-1"></i>
+                            <sup className="mr-3 font-weight-bold">{cartSelector.totalQuantity}</sup>
+                            <NumberFormat
+                                className='text-danger font-weight-bold'
+                                fixedDecimalScale={false}
+                                value={cartSelector.totalPrice}
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'PKR. '} />
+
+                        </Link>
+                    </li>
                     {
                         userSelector.email === "" && (
                             <>
@@ -97,6 +115,8 @@ function Nav() {
                 <Route path="/blogs/:desc" element={<BlogDetails />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/addProduct" element={<AddProduct />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/place-order" element={<PlaceOrder />} />
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="/products/:id" element={<ProductView />} />

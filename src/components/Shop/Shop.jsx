@@ -3,6 +3,8 @@ import '../Dashboard/style.css';
 import NoPhotoImage from '../../images/nophoto.jpg';
 import { Link } from "react-router-dom";
 import NumberFormat from "react-number-format";
+import { connect } from "react-redux";
+import { addToCart } from "../../store/action";
 
 class Shop extends Component {
 
@@ -143,6 +145,8 @@ class Shop extends Component {
             totalPrice: productData.price,
             product: productData
         }
+
+        this.props.addToCart(data);
     }
 
     render() {
@@ -233,4 +237,16 @@ class Shop extends Component {
     }
 }
 
-export default Shop;
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToCart: (data) => dispatch(addToCart(data)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shop);
