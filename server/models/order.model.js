@@ -7,6 +7,8 @@ const Order = new mongoose.Schema({
     address: { type: String, required: true },
     deliveryDate: { type: Date, required: true },
     products: { type: Array },
+    totalQuantity: { type: Number },
+    totalPrice: { type: Number },
     createdAt: { type: Date, required: true },
     updatedAt: { type: Date, required: true },
 }, {

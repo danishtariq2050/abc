@@ -292,6 +292,8 @@ app.post('/api/saveOrder', async (req, res) => {
             address: req.body.address,
             deliveryDate: req.body.deliveryDate,
             products: req.body.products,
+            totalQuantity: req.body.totalQuantity,
+            totalPrice: req.body.totalPrice,
             createdAt: new Date(),
             updatedAt: new Date(),
         })
