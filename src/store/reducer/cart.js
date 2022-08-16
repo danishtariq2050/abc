@@ -12,10 +12,7 @@ export const addToCart_reducer = (state = cartValues, data) => {
             return {
                 totalQuantity: state.totalQuantity + data.payload.totalQuantity,
                 totalPrice: state.totalPrice + data.payload.totalPrice,
-                products: state.products.concat[{
-                    quantity: 1,
-                    productData: data.payload.product
-                }],
+                products: state.products.concat(data.payload.product),
             }
 
         default:
