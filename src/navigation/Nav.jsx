@@ -24,6 +24,7 @@ import { user_details } from "../store/action";
 import Cart from "../components/Cart/Cart";
 import NumberFormat from "react-number-format";
 import PlaceOrder from "../components/PlaceOrder/PlaceOrder";
+import OrderCheckOut from "../components/Checkout/ordercheckout";
 
 function Nav() {
     const userSelector = useSelector((state) => state.user);
@@ -117,6 +118,7 @@ function Nav() {
                 <Route path="/addProduct" element={<AddProduct />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/place-order" element={<PlaceOrder />} />
+                <Route path="/checkout" element={<OrderCheckOut />} />
                 <Route path="*" element={<NotFound />} />
 
                 <Route path="/products/:id" element={<ProductView />} />

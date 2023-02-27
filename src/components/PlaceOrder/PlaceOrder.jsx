@@ -35,7 +35,7 @@ const PlaceOrder = () => {
         const data = await res.json();
 
         if (data.status === 'ok') {
-            navigateTo('/shop');
+            navigateTo('/checkout');
             alert(data.msg);
         }
 

@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }));
 
-mongoose.connect('mongodb+srv://danishtest:nShJPXTlAoRmdZoz@cluster0.dxauk.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://danishtariq1993:cedgbSiTdqXqinSg@danish.imes6nm.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true }).then(() => { console.log("DB Connected") })
     .catch(error => console.error(error));
 
 app.get('/abc', (req, res) => {
@@ -310,6 +310,31 @@ app.post('/api/saveOrder', async (req, res) => {
             msg: 'Order has not been Saved'
         });
     }
+});
+
+const stripe = require("stripe")(
+    "sk_test_51L2HrjHP6ReNoGQN9WFArDRmtpmGqjy8Tw27VF00B0Acq6en8gu22TRBHwvYWDMPaXUCczSwEKqnB7cKSz2coF4x00z0I59onb"
+);
+
+app.post("/checkout", async (req, res) => {
+    const amount = req.body.amount;
+    const token = req.body.token;
+
+    stripe.customers
+        .create({
+            email: token.email,
+            source: token.id,
+        })
+        .then((customer) => {
+            stripe.charges.create({
+                amount: amount,
+                currency: "PKR",
+                customer: customer.id,
+                receipt_email: token.email,
+            });
+        })
+        .then((result) => res.status(200).send(result))
+        .catch((error) => console.log(error));
 });
 
 app.listen(5000, () => {
