@@ -18,6 +18,7 @@ class Shop extends Component {
             priceError: '',
             // date: new Date().toLocaleString(),
             timeLeft: new Date().toLocaleTimeString(),
+            productsAll: [],
             products: [],
         });
 
@@ -27,6 +28,7 @@ class Shop extends Component {
         this.decre = this.decre.bind(this);
         this.getProducts = this.getProducts.bind(this);
         this.addInCart = this.addInCart.bind(this);
+        this.searchProduct = this.searchProduct.bind(this);
     }
 
     async getProducts() {
@@ -40,7 +42,8 @@ class Shop extends Component {
 
         if (data.status === 'ok') {
             this.setState({
-                products: data.product
+                products: data.product,
+                productsAll: data.product,
             });
         }
     }
@@ -149,6 +152,19 @@ class Shop extends Component {
         this.props.addToCart(data);
     }
 
+    searchProduct(val) {
+        if (val === '') {
+            this.setState({
+                products: this.state.productsAll
+            })
+        }
+        else {
+            this.setState({
+                products: this.state.productsAll.filter(x => x.name === val)
+            })
+        }
+    }
+
     render() {
         const { timeLeft, priceRange, priceError, products } = this.state;
 
@@ -189,7 +205,10 @@ class Shop extends Component {
                     </div>
                     <div className="col">
                         <div>
-                            <h4>Products</h4>
+                            <div className="d-flex flex-row justify-content-between">
+                                <h4>Products</h4>
+                                <input className="form-control w-25" placeholder="Search..." onChange={(e) => this.searchProduct(e.target.value)} />
+                            </div>
                             <div className="row">
                                 {
                                     products.map((v, i) => (
